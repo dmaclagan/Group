@@ -1,0 +1,40 @@
+We are interested in the case of the matroid of general changes of
+coordinate of the rational normal curve V(xz-y^2).  This is a general
+quadric in P^2, so we can assume that I = <ax^2+bxy+cxz+dy^2+eyz+fz^2>.
+
+------------------------------------------------------------------------
+d=3
+
+For I_3, the 3 x 3 minors of the Macaulay matrix vanish when
+3 of the monomials are not divisible by x (12 total).
+
+The 3 x 3 submatrix of the Macaulay matrix then has a row of zeros.
+
+To check: non-vanishing.
+
+------------------------------------------------------------------------
+d=4
+For I_4, the 6 x 6 minors of the Macaulay matrix seem to vanish when
+we are in one of the three situations happen:
+
+a) All monomials  are not divisible by x^4, x^3, or x^2
+(we think 252 = binom{9}{6}*3 up to symmetry)
+
+b) 4 monomials are not divisible by x, plus any two others
+(we think 605 not in the previous case, up to symmetry)
+
+c) All monomials are not divisible by x or not divisible by y 
+(48 not in previous cases no in symmetry)
+
+d) The monomials with x exponent 1 or 3 (3 up to symmetry)
+
+e) {x^3y, x^3z, y^3x, y^3z, z^3x, z^3y}  (unique up to symmetry).
+
+This is a total of 907
+
+This agrees with the computation.
+
+To check: non-computer proof
+
+------------------------------------------------------------------------
+
