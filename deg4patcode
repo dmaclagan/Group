@@ -1,0 +1,17 @@
+needsPackage "Matroids"
+needsPackage "Polyhedra"
+
+S = frac(QQ[a,b,c,d,e,f]);
+R=S[x,y,z];
+I = ideal(a*x^2+b*x*y+c*x*z+d*y^2+e*y*z+f*z^2);
+deg = 4;
+Monsd=flatten entries basis(deg,R);
+Id = super basis(deg,I);
+columnsM=apply(flatten entries Id,f->((coefficients(f,Monomials=>Monsd))_1));
+M=columnsM_0;
+scan(#columnsM-1,i->(M=M|columnsM_(i+1)));
+Ad=transpose(M); -- the Macaulay Matrix of I in degree d 
+Bd=transpose(gens(ker(Ad)));
+A=subsets(#Monsd,rank(Ad));
+pd=select(A, i -> determinant(submatrix(Ad,i))==0);
+monrel= apply(pd,i -> apply(i, j -> Monsd#j));
