@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{xcolor}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage[alphabetic]{amsrefs}
+\usepackage{microtype}
+\usepackage{xypic}
+\usepackage{dsfont} 
+\newtheorem{lemma}{Lemma}
+
+\newtheorem{example}[lemma]{Example}
+\newcommand*\interior[1]{\mathring{#1}}
+\newcommand*\closure[1]{\overline{#1}} 
+\newcommand{\note}[1]{{\color{red}#1}}
+\usepackage{accents}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage[rightcaption]{sidecap}
+\usepackage{amssymb}
+\newtheorem{proposition}{Proposition} 
+\usepackage{amsmath}
+
+\newcommand{\mon}{\textnormal{Mon}}
+
+
+\title{Group Meeting}
+\date{March 2024}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+
+Let $f\in K[x,y,z]$ a degree 2 homogeneus polynomial, $I=\langle f \rangle$ and $M_d=\textnormal{Mac}_d(I)$ its associated Macaulay matrix in degree $d$ that is size $\binom{d}{2} \times \binom{d+2}{2}$.
+
+
+\begin{proposition}
+Let $k \geq 2$. If $B$ is a minor of $M_d$ 
+such that the set of columns of $B$ that are indexed by $m \cdot \mon_k$ satisfies  $|B \cap m \cdot \mon_k|< \dim I_k= \binom{k}{2} $ for some monomial $m\in \mon_{d-k}$, then $\det B= 0$.  
+
+\end{proposition}
+
+
+With the notations above, fix $m\in \mon_{d-k}$. We can write $Mac_d (I)$ in the following block form:
+
+\begin{tabular}{c c | c }
+ & $m\cdot\mon_k$ & $\mon_d - m\cdot\mon_k$ \\
+
+ $n\in\mon_k :  m| n$ & * & $0$ \\
+
+ $\mon_k - \{n\in\mon_k :  m|n\}$ & * & * \\
+ 
+\end{tabular}
+
+
+ Note that the top right square is zero because the rows are indexed by monomials divisible by $m$ and the columns are precisely the monomials that are not divisible by $m$. 
+
+ As the cardinality of $\{n\in\mon_k :  m| n \}$ is $\binom{d-2-(d-k)+2}{2} = \binom{k}{2}$ and  cardinality of $m \cdot \mon_k$ is $\binom{k+2}{2}$, we deduce that the bottom left square has size $\binom{d}{2}-\binom{k}{2} \times \binom{d+2}{2}-\binom{k+2}{2}$. 
+
+Therefore, if $|B \cap \mon_d - m\cdot\mon_k | > \binom{d}{2}-\binom{k}{2}$, these columns would be linearly dependent because they span a $(\binom{d}{2}-\binom{k}{2})$-dimensional subspace  and we conclude.
+
+
+
+
+\end{document}
