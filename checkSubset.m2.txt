@@ -4,6 +4,7 @@
 
 -- l= d-k
 
+
 checkSubset= B -> (
 	subsetOk= true;
 	R= ring first B;
@@ -22,8 +23,47 @@ checkSubset= B -> (
 
  )
 
-
 R= QQ[x,y,z]; 
 assert( checkSubset({x^3, x^2*y, x^2*z, x*y^2, x*y*z, x*z^2, y^3} )==false)
 assert( checkSubset({x^4, x^3*y, x^3*z, x^2*y^2, x^2*y*z, x^2*z^2, x*y^2*z , y*z^3, y^2*z^2} )==false)
 assert( checkSubset({x^3*y, x^2*y^2, x^3*z, x^2* y*z, y^3*z, x^2*z^2, y^2*z^2, x*z^3, y*z^3 })==true)
+
+
+-- Generalization
+
+MacaulayMatrix= (d,I) -> (
+    Rng=ring I;
+    Monsd=flatten entries basis(d,Rng);
+    Id = super basis(d,I);
+    columnsM=apply(flatten entries Id,f->((coefficients(f,Monomials=>Monsd))_1));
+    M=columnsM_0;
+    scan(#columnsM-1,i->(M=M|columnsM_(i+1)));
+    Ad=transpose(M)
+); 
+
+I= ideal( random(2, R));
+MacI6=  MacaulayMatrix(6,I)
+
+--list of monomials of deg 6 
+
+
+Mon6=flatten entries basis(6,R);
+
+-- Set up macaulay matrix (and labbel monomials {0,..., n}), obtain the set of basis BB using chekSubset and calculate the determinant of the complement of each B recording wich ones are zero.
+
+listB= {};
+for zzz from 1 to 20000 do(
+	indx = random apply (28, i -> i);
+	B1=apply(13, i-> Mon6_(indx_i) );
+	if checkSubset (B1) then (
+		mcminor = select (28, i-> position (indx, j-> i==j)>12 );
+		if det(MacI6_mcminor)==0 then append(listB,B1) )
+
+)
+
+-- TO DO: check that the last "for" is working
+-- change to other degree (eg d=5 and the other changes )
+
+
+
+
