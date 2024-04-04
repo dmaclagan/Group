@@ -4,22 +4,24 @@
 
 -- l= d-k
 
-
 checkSubset= B -> (
 	subsetOk= true;
 	R= ring first B;
 	d= first degree first B;
-	for l from 1 to d-2 do (
+	l=1;
+	while subsetOk and l<d-1 do (
 		Monk=flatten entries basis(l,R);
 		scan(Monk, u ->(
 			if (#(select(B, b-> (b%u)==0_R)))>2*(d-l)+1 then (subsetOk=false; 
-			<< u << endl;	);
+			<< u << endl; 
+			break;	);
 			));
-		
+		l=l+1;
 		);
 	return subsetOk;
 
  )
+
 
 R= QQ[x,y,z]; 
 assert( checkSubset({x^3, x^2*y, x^2*z, x*y^2, x*y*z, x*z^2, y^3} )==false)
