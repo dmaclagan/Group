@@ -55,9 +55,9 @@ listB= {};
 for zzz from 1 to 20000 do(
 	indx = random apply (28, i -> i);
 	B1=apply(13, i-> Mon6_(indx_i) );
-	if checkSubset (B1) then (
+	if checkSubset(B1) then (
 		mcminor = select (28, i-> position (indx, j-> i==j)>12 );
-		if det(MacI6_mcminor)==0 then append(listB,B1) )
+		if det(MacI6_mcminor)==0 then listB=append(listB,B1) )
 
 )
 
