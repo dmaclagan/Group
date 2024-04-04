@@ -1,0 +1,33 @@
+-- input list B of monomials
+-- output three lists of monomials: first is the monomials of B divisible by x, all divided by x
+-- then same for y and z
+divisionList = B -> (
+	   S = ring B#0;
+	   Mon_1 = gens S;
+	   Bdiv = apply(Mon_1, i -> select(B, j -> j % i == 0)//i);
+	   return Bdiv;
+	   )
+
+-- input list of monomials of size 2d+1
+-- recursively applies division list
+-- stops and outputs false if too many elements are divisible by a monomial
+-- otherwise outputs true
+basisCheck = B ->(
+           subsetOK = true;
+	   d = (length B - 1)//2;
+	   k = d-1;
+	   B = {B};
+	   while k > 1 do (
+	   Bdiv = unique flatten apply(B, i -> divisionList(i));
+	   tooBig = select(Bdiv, i -> length i > 2*k+1);
+	   B = Bdiv;
+	   k = k-1;
+	   if length tooBig > 0 then (subsetOK = false; k=1;);
+	   );
+	   return subsetOK;
+	   )
+
+R= QQ[x,y,z]; 
+assert( basisCheck({x^3, x^2*y, x^2*z, x*y^2, x*y*z, x*z^2, y^3} )==false)
+assert( basisCheck({x^4, x^3*y, x^3*z, x^2*y^2, x^2*y*z, x^2*z^2, x*y^2*z , y*z^3, y^2*z^2} )==false)
+assert( basisCheck({x^3*y, x^2*y^2, x^3*z, x^2* y*z, y^3*z, x^2*z^2, y^2*z^2, x*z^3, y*z^3 })==true)
