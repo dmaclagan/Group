@@ -1,0 +1,27 @@
+-- Algorithm to check if a subset of 2d+1 monomials is a bases of our matroid.
+-- Input: 2d+1 monomials of degree d in a polynomial ring k[x,y,z] 
+-- Output: Yes/No if for some monomial of some monomial M of degree less than d-2 there are strictily more than 2k+1 monomials divisible by M.
+
+-- l= d-k
+
+
+checkSubset= B -> (
+	subsetOk= true;
+	R= ring first B;
+	d= first degree first B;
+	for l from 1 to d-2 do (
+		Monk=flatten entries basis(l,R);
+		scan(Monk, u ->(
+			if (#(select(B, b-> (b%u)==0_R)))>2*(d-l)+1 then (subsetOk=false; 
+			<< u << endl;	);
+			));
+		
+		);
+	return subsetOk;
+
+ )
+
+R= QQ[x,y,z]; 
+assert( checkSubset({x^3, x^2*y, x^2*z, x*y^2, x*y*z, x*z^2, y^3} )==false)
+assert( checkSubset({x^4, x^3*y, x^3*z, x^2*y^2, x^2*y*z, x^2*z^2, x*y^2*z , y*z^3, y^2*z^2} )==false)
+assert( checkSubset({x^3*y, x^2*y^2, x^3*z, x^2* y*z, y^3*z, x^2*z^2, y^2*z^2, x*z^3, y*z^3 })==true)
